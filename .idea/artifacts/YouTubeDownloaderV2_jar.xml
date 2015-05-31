@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="YouTubeDownloaderV2:jar">
+    <output-path>$USER_HOME$/Desktop/YouTubeDownloader_public</output-path>
+    <root id="archive" name="YouTubeDownloader.jar">
+      <element id="module-output" name="YouTubeDownloaderV2" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/json-20141113.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="J:/Downloads/Firefox/jsoup-1.8.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
