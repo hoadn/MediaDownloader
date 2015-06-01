@@ -14,6 +14,7 @@ public class InstagramDownloaderPanel extends JPanel {
     private JTextField txtInstaLink;
     private JTextField txtSavePath;
     private JCheckBox checkPreview;
+    private JCheckBox skipExistingFiles;
 
     private JFileChooser dirChooser;
 
@@ -93,6 +94,7 @@ public class InstagramDownloaderPanel extends JPanel {
                     @Override
                     public void run() {
                         igDownloader = new InstagramDownloader(txtInstaProfile.getText(), txtSavePath.getText());
+                        igDownloader.setSkipFiles(skipExistingFiles.isSelected());
                         String userID = igDownloader.fetchUserID("https://api.instagram.com/v1/users/search?q={user}&client_id=21ae9c8b9ebd4183adf0d0602ead7f05");
                         System.out.println("Found userID: " + userID);
                         igDownloader.setSavePath(txtSavePath.getText() + "/" + userID);
@@ -134,6 +136,7 @@ public class InstagramDownloaderPanel extends JPanel {
         checkPreview.setSelected(true);
         btnGetAllFromProfileAndDownload = new JButton("Crawl profile");
         txtInstaProfile = new JTextField("user:");
+        skipExistingFiles = new JCheckBox("Skip existing files (crawler only)");
 
         panel.add(new JLabel("Save path:"));
         panel.add(txtSavePath);
@@ -145,6 +148,7 @@ public class InstagramDownloaderPanel extends JPanel {
         panel.add(txtInstaProfile);
         panel.add(btnGetAllFromProfileAndDownload);
         panel.add(checkPreview);
+        panel.add(skipExistingFiles);
 
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.CENTER);

@@ -1,15 +1,9 @@
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.*;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +20,7 @@ public class InstagramDownloader extends Downloader{
     private String usrID;
 
     private boolean isPreviewWanted;
+    private boolean skipExistingFiles;
 
     private ImagePreviewWindow imgPreview;
     private JSoupAnalyze webObj;
@@ -46,7 +41,7 @@ public class InstagramDownloader extends Downloader{
         else
             this.igLink = igLink.replace("user:", "");
 
-        this.savePath = savePath;
+        this.savePath = CheckSavePath(savePath);
     }
 
     public String GetURLsAndPreview(){
@@ -94,6 +89,12 @@ public class InstagramDownloader extends Downloader{
 
             URL url = new URL(urls);
             String[] URL_split = urls.split("/");
+
+            // skip existing files in order to keep is a crawler
+            if(skipExistingFiles == true && isFileExisting(new File(savePath + URL_split[URL_split.length - 1]))){
+                downloadWindow.setElementPercentage(100 + "%", element);
+                return;
+            }
 
             InputStream in = new BufferedInputStream(url.openStream());
 
@@ -187,10 +188,14 @@ public class InstagramDownloader extends Downloader{
     }
 
     public void setSavePath(String savePath) {
-        this.savePath = savePath;
+        this.savePath = CheckSavePath(savePath);
     }
 
     public void setDownloadWindow(InstagramDownloadWindow downloadWindow) {
         this.downloadWindow = downloadWindow;
+    }
+
+    public void setSkipFiles(boolean skipFiles) {
+        this.skipExistingFiles = skipFiles;
     }
 }

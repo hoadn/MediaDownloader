@@ -1,13 +1,7 @@
 import org.jsoup.select.Elements;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.io.*;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * Created by Dominik on 20.04.2015.

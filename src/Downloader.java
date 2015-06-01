@@ -17,6 +17,18 @@ import java.nio.file.Paths;
 public abstract class Downloader {
 
     // Methods any Downloader need
+    public boolean isFileExisting(File fileToCheck){
+        try {
+            if (fileToCheck.exists())
+                return true;
+            else
+                return false;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
     public int getDownloadSize(String urls){
         URLConnection hUrl = null;
         try {

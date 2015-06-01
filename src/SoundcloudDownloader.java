@@ -3,10 +3,6 @@ import org.jsoup.Jsoup;
 
 import java.io.*;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
 
 /**
  * Created by Dominik on 31.05.2015.
