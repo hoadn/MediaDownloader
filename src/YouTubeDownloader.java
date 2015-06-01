@@ -1,5 +1,6 @@
 import org.jsoup.select.Elements;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 
@@ -113,6 +114,9 @@ public class YouTubeDownloader extends Downloader {
             //p.waitFor();
         } catch (Exception ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Couldn't start FFMPEG (please check FFMPEG path in the options " +
+                            "[for Windows users] / please install FFMPEG for Linux users]",
+                    "Error while starting converter - YouTubeDownloader", JOptionPane.ERROR_MESSAGE);
         }
     }
 
