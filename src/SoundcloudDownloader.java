@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by Dominik on 31.05.2015.
  */
-public class SoundcloudDownloader {
+public class SoundcloudDownloader extends Downloader{
     private JSoupAnalyze webObj;
     private SettingsManager settingsManager;
 
@@ -23,9 +23,8 @@ public class SoundcloudDownloader {
     private String audioName;
     private String soundcloud_url;
 
-    //private Map<String, String> cookies;
-
     public SoundcloudDownloader(String soundcloud_url, String savePath){
+        super();
         settingsManager = new SettingsManager();
         try{
             this.soundcloud_url = soundcloud_url;
@@ -56,70 +55,6 @@ public class SoundcloudDownloader {
         }
     }
 
-    private String CheckSavePath(String pathToCheck) {
-        if(System.getProperty("os.name").contains("Windows")) {
-            if (!pathToCheck.endsWith("\\")) {
-                pathToCheck = pathToCheck + "\\";
-            }
-
-            if (!Files.isDirectory(Paths.get(pathToCheck))) {
-                try {
-                    Files.createDirectory(Paths.get(pathToCheck));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return pathToCheck;
-        }
-        else if(System.getProperty("os.name").contains("nux")){
-            if(!pathToCheck.endsWith("/"))
-                pathToCheck = pathToCheck + "/";
-
-            if(!Files.isDirectory(Paths.get(pathToCheck))){
-                try{
-                    Files.createDirectory(Paths.get(pathToCheck));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-            return pathToCheck;
-        }
-        else
-            return pathToCheck;
-    }
-
-    private String validateFileName(String name){
-        if(name.contains("|"))
-            name = name.replace("|", "_");
-
-        if(name.contains(">"))
-            name = name.replace(">", "_");
-
-        if(name.contains("<"))
-            name = name.replace("<", "_");
-
-        if(name.contains("\""))
-            name = name.replace("\"", "_");
-
-        if(name.contains("?"))
-            name = name.replace("?", "_");
-
-        if(name.contains("*"))
-            name = name.replace("*", "_");
-
-        if(name.contains(":"))
-            name = name.replace(":", "_");
-
-        if(name.contains("\\\\"))
-            name = name.replace("\\\\", "_");
-
-        if(name.contains("/"))
-            name = name.replace("/", "_");
-
-        return name;
-    }
-
     public void DownloadFile(String urls, int fileSize, int element, SoundcloudDownloaderPanel guiElements){
         try {
             URL url = new URL(urls);
@@ -145,19 +80,6 @@ public class SoundcloudDownloader {
         }
         catch (Exception ex){
             ex.printStackTrace();
-        }
-    }
-
-    public int getDownloadSize(String urls){
-        URLConnection hUrl = null;
-        try {
-            hUrl = new URL(urls).openConnection();
-            int size = hUrl.getContentLength();
-            return size;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
         }
     }
 }

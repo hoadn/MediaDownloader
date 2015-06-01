@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 /**
  * Created by Dominik on 20.04.2015.
  */
-public class YouTubeDownloader {
+public class YouTubeDownloader extends Downloader {
     private JSoupAnalyze webObj;
 
     private String vidUrl;
@@ -24,6 +24,7 @@ public class YouTubeDownloader {
     private SettingsManager settingsManager;
 
     public YouTubeDownloader(String ytLink, String savePath, boolean isGema){
+        super();
         settingsManager = new SettingsManager();
         try {
             //set isGema to class variable if needed later
@@ -53,8 +54,6 @@ public class YouTubeDownloader {
             ex.printStackTrace();
         }
     }
-
-    //
 
     public String getVideoURL(){
         // if no gema unblocker is checked analyze with my technique
@@ -101,82 +100,6 @@ public class YouTubeDownloader {
         }
     }
 
-    // Helper Methods:
-    private String CheckSavePath(String pathToCheck) {
-        if(System.getProperty("os.name").contains("Windows")) {
-            if (!pathToCheck.endsWith("\\")) {
-                pathToCheck = pathToCheck + "\\";
-            }
-
-            if (!Files.isDirectory(Paths.get(pathToCheck))) {
-                try {
-                    Files.createDirectory(Paths.get(pathToCheck));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return pathToCheck;
-        }
-        else if(System.getProperty("os.name").contains("nux")){
-            if(!pathToCheck.endsWith("/"))
-                pathToCheck = pathToCheck + "/";
-
-            if(!Files.isDirectory(Paths.get(pathToCheck))){
-                try{
-                    Files.createDirectory(Paths.get(pathToCheck));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-            return pathToCheck;
-        }
-        else
-            return pathToCheck;
-    }
-
-    private String validateFileName(String name){
-        if(name.contains("|"))
-            name = name.replace("|", "_");
-
-        if(name.contains(">"))
-            name = name.replace(">", "_");
-
-        if(name.contains("<"))
-            name = name.replace("<", "_");
-
-        if(name.contains("\""))
-            name = name.replace("\"", "_");
-
-        if(name.contains("?"))
-            name = name.replace("?", "_");
-
-        if(name.contains("*"))
-            name = name.replace("*", "_");
-
-        if(name.contains(":"))
-            name = name.replace(":", "_");
-
-        if(name.contains("\\\\"))
-            name = name.replace("\\\\", "_");
-
-        if(name.contains("/"))
-            name = name.replace("/", "_");
-
-        return name;
-    }
-
-    private String decodeJScriptURL(String toDecode){
-        try {
-            ScriptEngineManager factory = new ScriptEngineManager();
-            ScriptEngine engine = factory.getEngineByName("JavaScript");
-            return (String) engine.eval("unescape('" + toDecode + "')");
-        } catch (ScriptException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public void StartConvert() {
         String file = savePath + vidTitle + ".mp4";
         String outputfile = savePath + vidTitle + ".mp3";
@@ -198,7 +121,6 @@ public class YouTubeDownloader {
             ex.printStackTrace();
         }
     }
-
 
     public void DownloadFile(String urls, int fileSize, int element, YouTubeDownloaderPanel guiElements){
         try {
@@ -227,19 +149,6 @@ public class YouTubeDownloader {
         }
         catch (Exception ex){
             ex.printStackTrace();
-        }
-    }
-
-    public int getDownloadSize(String urls){
-        URLConnection hUrl = null;
-        try {
-            hUrl = new URL(urls).openConnection();
-            int size = hUrl.getContentLength();
-            return size;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
         }
     }
 }

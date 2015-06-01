@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * Created by Dominik on 23.04.2015.
  */
-public class FacebookDownloader {
+public class FacebookDownloader extends Downloader {
     private String fbLink;
     private String fbID;
     private boolean isAlbum;
@@ -25,6 +25,7 @@ public class FacebookDownloader {
     private String url;
 
     public FacebookDownloader(String fbLink){
+        super();
         // determine if link is a album link
         // or complete profile (like: facebook.com/whatsapp)
 
@@ -52,7 +53,7 @@ public class FacebookDownloader {
     }
 
     public FacebookDownloader(){
-
+        super();
     }
 
     public void DownloadFile(String urls, long fileSize, int element, FacebookDownloaderPanel guiElements, String savePath){
@@ -224,74 +225,6 @@ public class FacebookDownloader {
         }catch (IOException ex){
             System.err.println("No links found or private album!");
             return null;
-        }
-    }
-
-    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is;
-        try {
-            is = new URL(url).openStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } catch (Exception ex){
-            System.err.println("No vid found on this node");
-            return null;
-        }
-    }
-
-    private String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
-    private String CheckSavePath(String pathToCheck) {
-        if(System.getProperty("os.name").contains("Windows")) {
-            if (!pathToCheck.endsWith("\\")) {
-                pathToCheck = pathToCheck + "\\";
-            }
-
-            if (!Files.isDirectory(Paths.get(pathToCheck))) {
-                try {
-                    Files.createDirectory(Paths.get(pathToCheck));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return pathToCheck;
-        }
-        else if(System.getProperty("os.name").contains("nux")){
-            if(!pathToCheck.endsWith("/"))
-                pathToCheck = pathToCheck + "/";
-
-            if(!Files.isDirectory(Paths.get(pathToCheck))){
-                try{
-                    Files.createDirectory(Paths.get(pathToCheck));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-            return pathToCheck;
-        }
-        else
-            return pathToCheck;
-    }
-
-    public Long getDownloadSize(String urls){
-        try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(urls).openConnection();
-            conn.connect();
-            return Long.parseLong(conn.getHeaderField("Content-Length"));
-        }catch (Exception ex){
-            System.err.println("No content-length given... continue");
-            //ex.printStackTrace();
-            return (long)0;
         }
     }
 }

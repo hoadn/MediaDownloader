@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 /**
  * Created by Dominik on 22.04.2015.
  */
-public class InstagramDownloader {
+public class InstagramDownloader extends Downloader{
     private String igLink;
     private String savePath;
     private String img_Title;
@@ -32,6 +32,7 @@ public class InstagramDownloader {
     private InstagramDownloadWindow downloadWindow;
 
     public InstagramDownloader(String igLink, String savePath, boolean isPreviewWanted){
+        super();
         this.igLink = igLink;
         this.savePath = savePath;
         this.isPreviewWanted = isPreviewWanted;
@@ -39,6 +40,7 @@ public class InstagramDownloader {
 
     // constructor for crawling instagram profile
     public InstagramDownloader(String igLink, String savePath){
+        super();
         if(igLink.contains("userID:"))
             this.usrID = igLink.replace("userID:", "");
         else
@@ -143,27 +145,6 @@ public class InstagramDownloader {
         }
     }
 
-    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
-        }
-    }
-
-    private String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
     public String[] fetchAllImageURLs(String userID, String newURL) {
         if(newURL.equals(""))
             newURL = "https://api.instagram.com/v1/users/" + userID + "/media/recent?client_id=21ae9c8b9ebd4183adf0d0602ead7f05";
@@ -205,59 +186,11 @@ public class InstagramDownloader {
         }
     }
 
-    private String CheckSavePath(String pathToCheck) {
-        if(System.getProperty("os.name").contains("Windows")) {
-            pathToCheck = pathToCheck.replace("/", "\\");
-
-            if (!pathToCheck.endsWith("\\")) {
-                pathToCheck = pathToCheck + "\\";
-            }
-
-            if (!Files.isDirectory(Paths.get(pathToCheck))) {
-                try {
-                    Files.createDirectory(Paths.get(pathToCheck));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return pathToCheck;
-        }
-        else if(System.getProperty("os.name").contains("nux")){
-            if(!pathToCheck.endsWith("/"))
-                pathToCheck = pathToCheck + "/";
-
-            if(!Files.isDirectory(Paths.get(pathToCheck))){
-                try{
-                    Files.createDirectory(Paths.get(pathToCheck));
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-            return pathToCheck;
-        }
-        else
-            return pathToCheck;
-    }
-
     public void setSavePath(String savePath) {
         this.savePath = savePath;
     }
 
     public void setDownloadWindow(InstagramDownloadWindow downloadWindow) {
         this.downloadWindow = downloadWindow;
-    }
-
-    public int getDownloadSize(String urls){
-        URLConnection hUrl = null;
-        try {
-            hUrl = new URL(urls).openConnection();
-            int size = hUrl.getContentLength();
-            return size;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
-        }
     }
 }
