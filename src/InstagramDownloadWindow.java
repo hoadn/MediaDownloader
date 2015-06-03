@@ -28,6 +28,7 @@ public class InstagramDownloadWindow extends JDialog {
         //pack();
         setSize(new Dimension(325, 75));
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
 
 
@@ -76,7 +77,7 @@ public class InstagramDownloadWindow extends JDialog {
 
         listModel.setElementAt(s + " | " + nListString, element);
 
-        progressBar.setValue(element);
+        progressBar.setValue(element + 1);
     }
 
     public void RemoveElementAt(int i){
