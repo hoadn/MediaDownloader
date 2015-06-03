@@ -68,6 +68,20 @@ public class YouTubeDownloaderPanel extends JPanel {
                                 username, "YouTubeDownloader - Added all channel videos", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
+                else if(txtURL.getText().contains("list=")){
+                    YouTubeRetrievePlaylist retrievePlaylist = new YouTubeRetrievePlaylist(txtURL.getText());
+                    String[] elements = retrievePlaylist.getAllVideosFromPlaylist("");
+                    for (int i = 0; i < elements.length; i++) {
+                        listModel.addElement(elements[i]);
+                    }
+                    if(System.getProperty("os.name").contains("Windows"))
+                        txtPath.setText(txtPath.getText() + "\\\\" + retrievePlaylist.getPlayListTitle());
+                    else
+                        txtPath.setText(txtPath.getText() + "/" + retrievePlaylist.getPlayListTitle());
+
+                    JOptionPane.showMessageDialog(null, "Added " + elements.length + " links to the downloader"
+                            , "YouTubeDownloader - Added all playlist videos", JOptionPane.INFORMATION_MESSAGE);
+                }
                 else if(txtURL.getText().contains("youtube.com/"))
                     listModel.addElement(txtURL.getText());
                 else{
