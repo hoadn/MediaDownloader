@@ -2,6 +2,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.nodes.Element;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -128,7 +129,15 @@ public class InstagramDownloader extends Downloader{
             DownloadFile(urls[i], i, getDownloadSize(urls[i]));
             if(downloadWindow != null)
                 downloadWindow.SetOverallProgress("[" + (i+1) + "/" + urls.length + "]");
+
+            if(downloadWindow.isClosed() || downloadWindow == null){
+                JOptionPane.showMessageDialog(null, "Stopping download, due to download window closed ...",
+                        "InstagramDownloader - Download aborted!", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
         }
+
+        JOptionPane.showMessageDialog(null, "Downloaded successfully all media files.", "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public String fetchUserID(String requestURL) {

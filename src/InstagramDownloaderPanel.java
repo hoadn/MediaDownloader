@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Created by Dominik on 22.04.2015.
@@ -106,7 +105,8 @@ public class InstagramDownloaderPanel extends JPanel {
                         txtSavePath.setEditable(true);
                         btnDownload.setEnabled(true);
                         btnGetAllFromProfileAndDownload.setEnabled(true);
-                        JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtSavePath.getText(), "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
+                        // this hasn't to be here!
+                        // JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtSavePath.getText(), "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
                         dlWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     }
                 });
@@ -137,6 +137,7 @@ public class InstagramDownloaderPanel extends JPanel {
         btnGetAllFromProfileAndDownload = new JButton("Crawl profile");
         txtInstaProfile = new JTextField("user:");
         skipExistingFiles = new JCheckBox("Skip existing files (crawler only)");
+        skipExistingFiles.setSelected(true);
 
         panel.add(new JLabel("Save path:"));
         panel.add(txtSavePath);
