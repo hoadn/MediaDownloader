@@ -92,7 +92,7 @@ public class InstagramDownloader extends Downloader{
             String[] URL_split = urls.split("/");
 
             // skip existing files in order to keep is a crawler
-            if(skipExistingFiles == true && isFileExisting(new File(savePath + URL_split[URL_split.length - 1]))){
+            if(skipExistingFiles == true && isFileExisting(new File(savePath + URL_split[URL_split.length - 1])) && showProgress){
                 downloadWindow.setElementPercentage(100 + "%", element);
                 return;
             }

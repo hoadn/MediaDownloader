@@ -122,23 +122,38 @@ public class MainWindow extends JFrame {
 
     // main method which starts the gui and the entry programm
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (UnsupportedLookAndFeelException e) {
-            // handle exception
-        }
-        catch (ClassNotFoundException e) {
-            // handle exception
-        }
-        catch (InstantiationException e) {
-            // handle exception
-        }
-        catch (IllegalAccessException e) {
-            // handle exception
-        }
+        // if there are any parameters start console mode
+        boolean noout = false;
+        if(args.length > 0){
+            // if silent arg is submitted print no output in order to run automatically
+            for (int i = 0; i < args.length; i++) {
+                if(args[i].contains("silent") || args[i].contains("-s"))
+                    noout = true;
+            }
+            // setup a new consolemanager and run it
+            try {
+                ConsoleManager consoleManager = new ConsoleManager(args, noout);
+                consoleManager.run();
+            }catch (Exception ex){
+                ex.printStackTrace();
+                return;
+            }
+        }else {
+            // no arguments given so start up the GUI
+            try {
+                UIManager.setLookAndFeel(
+                        UIManager.getSystemLookAndFeelClassName());
+            } catch (UnsupportedLookAndFeelException e) {
+                // handle exception
+            } catch (ClassNotFoundException e) {
+                // handle exception
+            } catch (InstantiationException e) {
+                // handle exception
+            } catch (IllegalAccessException e) {
+                // handle exception
+            }
 
-        new MainWindow();
+            new MainWindow();
+        }
     }
 }

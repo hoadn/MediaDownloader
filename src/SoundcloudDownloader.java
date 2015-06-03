@@ -65,7 +65,7 @@ public class SoundcloudDownloader extends Downloader{
                 out.write(data, 0, count);
                 sum += count;
 
-                if (fileSize > 0) {
+                if (fileSize > 0 && guiElements != null) {
                     guiElements.setElementPercentage(((int)(sum / fileSize * 100)) + "%", element);
                 }
             }

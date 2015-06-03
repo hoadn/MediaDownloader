@@ -126,7 +126,8 @@ public class YouTubeDownloader extends Downloader {
             InputStream in = new BufferedInputStream(url.openStream());
             OutputStream out = new BufferedOutputStream(new FileOutputStream(savePath + vidTitle + ".mp4"));
             // in order to delete mp4s after downloading
-            guiElements.addCurrentMP4File(savePath + vidTitle + ".mp4");
+            if(guiElements != null)
+                guiElements.addCurrentMP4File(savePath + vidTitle + ".mp4");
 
             double sum = 0;
             int count;
@@ -136,7 +137,7 @@ public class YouTubeDownloader extends Downloader {
                 out.write(data, 0, count);
                 sum += count;
 
-                if (fileSize > 0) {
+                if (fileSize > 0 && guiElements != null) {
                     guiElements.setElementPercentage(((int)(sum / fileSize * 100)) + "%", element);
                 }
             }
