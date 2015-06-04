@@ -78,13 +78,11 @@ public class InstagramDownloaderPanel extends JPanel {
                         "Please enter a valid username to start the crawling process",
                         "InstagramDownloader - No user entered", JOptionPane.ERROR_MESSAGE);
                 return;
-            }
-            txtSavePath.setEditable(false);
-            btnDownload.setEnabled(false);
-            btnGetAllFromProfileAndDownload.setEnabled(false);
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
+            }else if(check.contains("user:") || check.contains("userID")) {
+                txtSavePath.setEditable(false);
+                btnDownload.setEnabled(false);
+                btnGetAllFromProfileAndDownload.setEnabled(false);
+                Thread t = new Thread(() -> {
                     igDownloader = new InstagramDownloader(txtInstaProfile.getText(), txtSavePath.getText());
                     igDownloader.setSkipFiles(skipExistingFiles.isSelected());
                     String userID = igDownloader.fetchUserID("https://api.instagram.com/v1/users/search?q={user}&client_id=21ae9c8b9ebd4183adf0d0602ead7f05");
@@ -101,9 +99,13 @@ public class InstagramDownloaderPanel extends JPanel {
                     // this hasn't to be here!
                     // JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtSavePath.getText(), "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
                     dlWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                }
-            });
-            t.start();
+                });
+                t.start();
+            }else{
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a valid username or user id to start the crawling process",
+                        "InstagramDownloader - No valid data entered", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
 
