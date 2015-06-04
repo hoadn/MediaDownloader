@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * Creation time: 03:03
  * Created by Dominik on 03.06.2015.
  */
 public class ConsoleManager {

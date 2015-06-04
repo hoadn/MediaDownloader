@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 22.04.2015.
  */
 public class InstagramDownloaderPanel extends JPanel {
@@ -31,87 +32,78 @@ public class InstagramDownloaderPanel extends JPanel {
     }
 
     private void initActionListener() {
-        btnChoosePath.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String path = "";
+        btnChoosePath.addActionListener(e -> {
+            String path = "";
 
-                if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-                    path = dirChooser.getSelectedFile().getAbsolutePath();
+            if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                path = dirChooser.getSelectedFile().getAbsolutePath();
 
-                if(System.getProperty("os.name").contains("Windows"))
-                    path = path.replace("\\", "\\\\");
+            if(System.getProperty("os.name").contains("Windows"))
+                path = path.replace("\\", "\\\\");
 
-                txtSavePath.setText(path);
-            }
+            txtSavePath.setText(path);
         });
-        btnDownload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(txtInstaLink.getText().trim().equals(""))
-                {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid instagram link",
-                            "InstagramDownloader - Enter a valid URL", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                txtSavePath.setEditable(false);
-                btnGetAllFromProfileAndDownload.setEnabled(false);
-                btnDownload.setEnabled(false);
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            igDownloader = new InstagramDownloader(txtInstaLink.getText(), txtSavePath.getText(), checkPreview.isSelected());
-                            String url = igDownloader.GetURLsAndPreview();
-                            igDownloader.DownloadFile(url, 0, 0);
-                        }catch (Exception ex){
-                            ex.printStackTrace();
-                        }
+        btnDownload.addActionListener(e -> {
+            if(txtInstaLink.getText().trim().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid instagram link",
+                        "InstagramDownloader - Enter a valid URL", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            txtSavePath.setEditable(false);
+            btnGetAllFromProfileAndDownload.setEnabled(false);
+            btnDownload.setEnabled(false);
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        igDownloader = new InstagramDownloader(txtInstaLink.getText(), txtSavePath.getText(), checkPreview.isSelected());
+                        String url = igDownloader.GetURLsAndPreview();
+                        igDownloader.DownloadFile(url, 0, 0);
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
 
-                        txtSavePath.setEditable(true);
-                        btnGetAllFromProfileAndDownload.setEnabled(true);
-                        btnDownload.setEnabled(true);
-                    }
-                });
-                t.start();
-            }
-        });
-        btnGetAllFromProfileAndDownload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String check = txtInstaProfile.getText().replace("user:", "").replace("users:", "");
-                if(check.trim().equals("")) {
-                    JOptionPane.showMessageDialog(null,
-                            "Please enter a valid username to start the crawling process",
-                            "InstagramDownloader - No user entered", JOptionPane.ERROR_MESSAGE);
-                    return;
+                    txtSavePath.setEditable(true);
+                    btnGetAllFromProfileAndDownload.setEnabled(true);
+                    btnDownload.setEnabled(true);
                 }
-                txtSavePath.setEditable(false);
-                btnDownload.setEnabled(false);
-                btnGetAllFromProfileAndDownload.setEnabled(false);
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        igDownloader = new InstagramDownloader(txtInstaProfile.getText(), txtSavePath.getText());
-                        igDownloader.setSkipFiles(skipExistingFiles.isSelected());
-                        String userID = igDownloader.fetchUserID("https://api.instagram.com/v1/users/search?q={user}&client_id=21ae9c8b9ebd4183adf0d0602ead7f05");
-                        System.out.println("Found userID: " + userID);
-                        igDownloader.setSavePath(txtSavePath.getText() + "/" + userID);
-                        String[] urls = igDownloader.fetchAllImageURLs(userID, "");
-                        System.out.println("Found: " + urls.length + " media files");
-                        dlWindow = new InstagramDownloadWindow(urls);
-                        igDownloader.setDownloadWindow(dlWindow);
-                        igDownloader.DownloadFile(urls);
-                        txtSavePath.setEditable(true);
-                        btnDownload.setEnabled(true);
-                        btnGetAllFromProfileAndDownload.setEnabled(true);
-                        // this hasn't to be here!
-                        // JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtSavePath.getText(), "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
-                        dlWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    }
-                });
-                t.start();
+            });
+            t.start();
+        });
+        btnGetAllFromProfileAndDownload.addActionListener(e -> {
+            String check = txtInstaProfile.getText().replace("user:", "").replace("users:", "");
+            if(check.trim().equals("")) {
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a valid username to start the crawling process",
+                        "InstagramDownloader - No user entered", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+            txtSavePath.setEditable(false);
+            btnDownload.setEnabled(false);
+            btnGetAllFromProfileAndDownload.setEnabled(false);
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    igDownloader = new InstagramDownloader(txtInstaProfile.getText(), txtSavePath.getText());
+                    igDownloader.setSkipFiles(skipExistingFiles.isSelected());
+                    String userID = igDownloader.fetchUserID("https://api.instagram.com/v1/users/search?q={user}&client_id=21ae9c8b9ebd4183adf0d0602ead7f05");
+                    System.out.println("Found userID: " + userID);
+                    igDownloader.setSavePath(txtSavePath.getText() + "/" + userID);
+                    String[] urls = igDownloader.fetchAllImageURLs(userID, "");
+                    System.out.println("Found: " + urls.length + " media files");
+                    dlWindow = new InstagramDownloadWindow(urls);
+                    igDownloader.setDownloadWindow(dlWindow);
+                    igDownloader.DownloadFile(urls);
+                    txtSavePath.setEditable(true);
+                    btnDownload.setEnabled(true);
+                    btnGetAllFromProfileAndDownload.setEnabled(true);
+                    // this hasn't to be here!
+                    // JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtSavePath.getText(), "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
+                    dlWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                }
+            });
+            t.start();
         });
     }
 

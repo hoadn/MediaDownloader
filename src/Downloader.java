@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
+ * Creation time: 03:04
  * Created by Dominik on 01.06.2015.
  */
 public abstract class Downloader {
@@ -30,7 +31,7 @@ public abstract class Downloader {
     }
 
     public int getDownloadSize(String urls){
-        URLConnection hUrl = null;
+        URLConnection hUrl;
         try {
             hUrl = new URL(urls).openConnection();
             int size = hUrl.getContentLength();
@@ -117,15 +118,13 @@ public abstract class Downloader {
         }
     }
 
-    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
+    public JSONObject readJsonFromUrl(String url) throws JSONException {
+        try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
+            return new JSONObject(jsonText);
+        }catch (Exception ex){
+            return null;
         }
     }
 

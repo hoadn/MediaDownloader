@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 03.06.2015.
  */
 public class YouTubeRetrievePlaylist extends Downloader {
@@ -14,7 +15,7 @@ public class YouTubeRetrievePlaylist extends Downloader {
     private String pageToken = "&pageToken=";
     private String key = "&key=AIzaSyC7vBPNYtT_eNy90WBZ-uQ7KwZ-iqInXcE";
     private String playlistId;
-    private List<String> videoIdList = new ArrayList<String>();
+    private List<String> videoIdList = new ArrayList<>();
     private String playListTitle = "";
 
     public YouTubeRetrievePlaylist(String playlistLink){

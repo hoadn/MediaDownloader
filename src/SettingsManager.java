@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 28.04.2015.
  */
 public class SettingsManager {
@@ -170,25 +171,22 @@ class SettingsManagerWindow extends JDialog{
 
         //lblSavePath = new JLabel("Standard save path:");
         btnSelectStandardSave = new JButton("Select standard save path:");
-        btnSelectStandardSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String path = "";
+        btnSelectStandardSave.addActionListener(e -> {
+            String path = "";
 
-                dirChooser = new JFileChooser();
-                dirChooser.setDialogTitle("Select the path where files will be stored ...");
-                dirChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.dir")));
-                dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                dirChooser.setAcceptAllFileFilterUsed(false);
+            dirChooser = new JFileChooser();
+            dirChooser.setDialogTitle("Select the path where files will be stored ...");
+            dirChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            dirChooser.setAcceptAllFileFilterUsed(false);
 
-                if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-                    path = dirChooser.getSelectedFile().getAbsolutePath();
+            if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                path = dirChooser.getSelectedFile().getAbsolutePath();
 
-                if (System.getProperty("os.name").contains("Windows"))
-                    path = path.replace("\\", "\\\\");
+            if (System.getProperty("os.name").contains("Windows"))
+                path = path.replace("\\", "\\\\");
 
-                txtSavePath.setText(path);
-            }
+            txtSavePath.setText(path);
         });
         txtSavePath = new JTextField(man.GetStandardSavePath());
         lblConvertToMp3 = new JLabel("Convert to mp3");
@@ -199,54 +197,45 @@ class SettingsManagerWindow extends JDialog{
         checkRemoveGEMA = new JCheckBox("", man.GetRemoveGEMA());
         //lblFFMPEGFile = new JLabel("FFMPEG-Directory");
         btnSelectFFMPEG = new JButton("Select FFMPEG-Directory");
-        btnSelectFFMPEG.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String path = "";
+        btnSelectFFMPEG.addActionListener(e -> {
+            String path = "";
 
-                dirChooser = new JFileChooser();
-                dirChooser.setDialogTitle("Select the path where FFMPEG.exe is located");
-                dirChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.dir")));
-                dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                dirChooser.setAcceptAllFileFilterUsed(false);
+            dirChooser = new JFileChooser();
+            dirChooser.setDialogTitle("Select the path where FFMPEG.exe is located");
+            dirChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            dirChooser.setAcceptAllFileFilterUsed(false);
 
-                if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-                    path = dirChooser.getSelectedFile().getAbsolutePath();
+            if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                path = dirChooser.getSelectedFile().getAbsolutePath();
 
-                if (System.getProperty("os.name").contains("Windows"))
-                    path = path.replace("\\", "\\\\");
+            if (System.getProperty("os.name").contains("Windows"))
+                path = path.replace("\\", "\\\\");
 
-                txtFFMPEG.setText(path);
-            }
+            txtFFMPEG.setText(path);
         });
         txtFFMPEG = new JTextField(man.GetFFMPEGDir().replace("{wd}", System.getProperty("user.dir")));
 
         btnCancel = new JButton("Cancel");
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                //vs setVisible(false);
-            }
+        btnCancel.addActionListener(e -> {
+            dispose();
+            //vs setVisible(false);
         });
         btnSave = new JButton("Save & Close");
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    File settings = new File(settingsFile);
-                    PrintWriter out = new PrintWriter(settings);
-                    out.println("savepath:" + txtSavePath.getText());
-                    out.println("converttomp3:" + checkConvertToMp3.isSelected());
-                    out.println("removegema:" + checkRemoveGEMA.isSelected());
-                    out.println("ffmpeg:" + txtFFMPEG.getText().replace(System.getProperty("user.dir"), "{wd}"));
-                    out.println("removeMp4:" + checkRemoveMp4.isSelected());
-                    out.close();
-                    JOptionPane.showMessageDialog(null, "Successfully saved settings! Changes will apply on application restart...", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+        btnSave.addActionListener(e -> {
+            try {
+                File settings = new File(settingsFile);
+                PrintWriter out = new PrintWriter(settings);
+                out.println("savepath:" + txtSavePath.getText());
+                out.println("converttomp3:" + checkConvertToMp3.isSelected());
+                out.println("removegema:" + checkRemoveGEMA.isSelected());
+                out.println("ffmpeg:" + txtFFMPEG.getText().replace(System.getProperty("user.dir"), "{wd}"));
+                out.println("removeMp4:" + checkRemoveMp4.isSelected());
+                out.close();
+                JOptionPane.showMessageDialog(null, "Successfully saved settings! Changes will apply on application restart...", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
 

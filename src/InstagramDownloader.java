@@ -11,13 +11,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 22.04.2015.
  */
 public class InstagramDownloader extends Downloader{
     private String igLink;
     private String savePath;
     private String img_Title;
-    private String img_URL;
+    // --Commented out by Inspection (04.06.2015 03:00):private String img_URL;
     private String usrID;
 
     private boolean isPreviewWanted;
@@ -92,7 +93,7 @@ public class InstagramDownloader extends Downloader{
             String[] URL_split = urls.split("/");
 
             // skip existing files in order to keep is a crawler
-            if(skipExistingFiles == true && isFileExisting(new File(savePath + URL_split[URL_split.length - 1])) && showProgress){
+            if(skipExistingFiles && isFileExisting(new File(savePath + URL_split[URL_split.length - 1])) && showProgress){
                 downloadWindow.setElementPercentage(100 + "%", element);
                 return;
             }
@@ -147,7 +148,7 @@ public class InstagramDownloader extends Downloader{
         try {
             requestURL = requestURL.replace("{user}", igLink);
             JSONObject obj = readJsonFromUrl(requestURL);
-            String userID = obj.getJSONArray("data").getJSONObject(0).getString("id").toString();
+            String userID = obj.getJSONArray("data").getJSONObject(0).getString("id");
             return userID;
         }catch (Exception ex){
             ex.printStackTrace();
@@ -168,7 +169,7 @@ public class InstagramDownloader extends Downloader{
             }
 
             JSONArray arr = obj.getJSONArray("data");
-            List<String> itemlist = new ArrayList<String>();
+            List<String> itemlist = new ArrayList<>();
 
             for (int i = 0; i < arr.length(); i++) {
                 try {

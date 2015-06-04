@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 19.04.2015.
  */
 public class YouTubeGetChannelVideos extends Downloader {
@@ -45,7 +46,7 @@ public class YouTubeGetChannelVideos extends Downloader {
             }
 
             JSONArray arr = obj.getJSONArray("items");
-            List<String> itemlist = new ArrayList<String>();
+            List<String> itemlist = new ArrayList<>();
 
             for (int i = 0; i < arr.length(); i++)
             {
@@ -67,7 +68,7 @@ public class YouTubeGetChannelVideos extends Downloader {
             else
                 return Stream.concat(Arrays.stream(items), Arrays.stream(GetAllVideoIdsFromChannelID(channelID, token)))
                         .toArray(String[]::new);
-        }catch (IOException ex){
+        }catch (Exception ex){
             System.err.println("IO Exception");
             return null;
         }

@@ -6,10 +6,12 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * Creation time: 03:04
  * Created by Dominik on 23.04.2015.
  */
 public class FacebookDownloader extends Downloader {
@@ -120,9 +122,7 @@ public class FacebookDownloader extends Downloader {
             for (int i = 0; i < album_id.length; i++) {
                 String[] tmp = GetLinksFromAlbum("https://graph.facebook.com/v1.0/" + album_id[i] + "/photos?access_token=CAAT0ftuZAxBABAINQnxJoqFmvzuMlpUmfKZB0dawalmb3f5XmL9U2zmi6LeIZB1x822JLs4Fq7BuX7B8RRghQMr9ZAElGAaQg27OPUFmiTDVVFzjpRNuKWM49QNWWxZCZAr76ljf2Okix74LU9YMQxMZC9b0uz6JdliBlFRkVKmQcM0RkODPETRbI8BbQILiQ4SkT7MPZBbciZB50VjaCefDr&fields=source");
 
-                for (int j = 0; j < tmp.length; j++) {
-                    links.add(tmp[j]);
-                }
+                Collections.addAll(links, tmp);
             }
 
             String[] allPictures = new String[links.size()];
@@ -156,7 +156,7 @@ public class FacebookDownloader extends Downloader {
             }
 
             JSONArray arr = obj.getJSONArray("data");
-            List<String> itemlist = new ArrayList<String>();
+            List<String> itemlist = new ArrayList<>();
 
             for (int i = 0; i < arr.length(); i++) {
                 try {
@@ -177,7 +177,7 @@ public class FacebookDownloader extends Downloader {
             else
                 return Stream.concat(Arrays.stream(items), Arrays.stream(GetLinksFromAlbum(nextPage)))
                         .toArray(String[]::new);
-        }catch (IOException ex){
+        }catch (Exception ex){
             ex.printStackTrace();
             return null;
         }
@@ -196,7 +196,7 @@ public class FacebookDownloader extends Downloader {
             }
 
             JSONArray arr = obj.getJSONArray("data");
-            List<String> itemlist = new ArrayList<String>();
+            List<String> itemlist = new ArrayList<>();
 
             for (int i = 0; i < arr.length(); i++) {
                 try {
@@ -217,7 +217,7 @@ public class FacebookDownloader extends Downloader {
             else
                 return Stream.concat(Arrays.stream(items), Arrays.stream(GetLinksFromAlbum(nextPage)))
                         .toArray(String[]::new);
-        }catch (IOException ex){
+        }catch (Exception ex){
             System.err.println("No links found or private album!");
             return null;
         }

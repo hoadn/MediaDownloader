@@ -1,9 +1,9 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 20.04.2015.
  */
 public class JSoupAnalyze {
@@ -35,20 +35,5 @@ public class JSoupAnalyze {
 
     public Elements AnalyzeWithTag(String analyzeTag){
         return site.select(analyzeTag);
-    }
-
-    public String GetCompleteBodyHTML(){
-        return site.body().outerHtml();
-    }
-
-    public boolean GetIsFacebookLink(){
-        return isFacebookLink;
-    }
-
-    public String GetAbsoluteHrefURL(Element elem){
-        if(isFacebookLink)
-            return "https://facebook.com" + elem.attr("href");
-        else
-            return elem.attr("abs:href");
     }
 }

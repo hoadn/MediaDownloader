@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 20.04.2015.
  */
 public class MainWindow extends JFrame {
@@ -37,47 +38,31 @@ public class MainWindow extends JFrame {
     }
 
     private void initActionListeners() {
-        menuItemExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        menuItemHelp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String msg = "<html>This tool allows you to download various files from many social/video platforms (eg. YouTube)." +
-                        "<br />For the YouTube Downloader following terms are supported:" +
-                        "<ul>" +
-                        "<li>user:<i>USERNAME</i> (Add all videos from a channel)</li>" +
-                        "<li>https://wwww.youtube.com/watch?v=<i>VIDEOID</i> (Just adds this video to the download list)</li>" +
-                        "<li>https://www.youtube.com/user/<i>USERNAME</i> (Also add all videos from a channel)</li>" +
-                        "</ul>" +
-                        "</html>";
+        menuItemExit.addActionListener(e -> System.exit(0));
+        menuItemHelp.addActionListener(e -> {
+            String msg = "<html>This tool allows you to download various files from many social/video platforms (eg. YouTube)." +
+                    "<br />For the YouTube Downloader following terms are supported:" +
+                    "<ul>" +
+                    "<li>user:<i>USERNAME</i> (Add all videos from a channel)</li>" +
+                    "<li>https://wwww.youtube.com/watch?v=<i>VIDEOID</i> (Just adds this video to the download list)</li>" +
+                    "<li>https://www.youtube.com/user/<i>USERNAME</i> (Also add all videos from a channel)</li>" +
+                    "</ul>" +
+                    "</html>";
 
-                JOptionPane.showMessageDialog(null, new JLabel(msg), "Help", JOptionPane.INFORMATION_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(null, new JLabel(msg), "Help", JOptionPane.INFORMATION_MESSAGE);
         });
-        menuItemAbout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String msg = "<html>" +
-                        "Thanks for using MediaDownloader - written by R3DST0RM.<br />" +
-                        "This software uses ffmpeg as MP3 converter all licenses can be found here: bin/licenses/<br /><br />" +
-                        "This software is free software (GNU General Public License v2) - Source Code available at request:<br /><br />" +
-                        "E-Mail: <b>admin@r3d-soft.de</b><br />" +
-                        "Website: <b>http://r3d-soft.de</b>" +
-                        "</html>";
+        menuItemAbout.addActionListener(e -> {
+            String msg = "<html>" +
+                    "Thanks for using MediaDownloader - written by R3DST0RM.<br />" +
+                    "This software uses ffmpeg as MP3 converter all licenses can be found here: bin/licenses/<br /><br />" +
+                    "This software is free software (GNU General Public License v2) - Source Code available at request:<br /><br />" +
+                    "E-Mail: <b>admin@r3d-soft.de</b><br />" +
+                    "Website: <b>http://r3d-soft.de</b>" +
+                    "</html>";
 
-                JOptionPane.showMessageDialog(null, new JLabel(msg), "Help", JOptionPane.INFORMATION_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(null, new JLabel(msg), "Help", JOptionPane.INFORMATION_MESSAGE);
         });
-        menuItemSettingsWindow.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                settingsManager.ShowSettingsWindow();
-            }
-        });
+        menuItemSettingsWindow.addActionListener(e -> settingsManager.ShowSettingsWindow());
     }
 
     private void initComponents() {
@@ -143,13 +128,7 @@ public class MainWindow extends JFrame {
             try {
                 UIManager.setLookAndFeel(
                         UIManager.getSystemLookAndFeelClassName());
-            } catch (UnsupportedLookAndFeelException e) {
-                // handle exception
-            } catch (ClassNotFoundException e) {
-                // handle exception
-            } catch (InstantiationException e) {
-                // handle exception
-            } catch (IllegalAccessException e) {
+            } catch (UnsupportedLookAndFeelException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
                 // handle exception
             }
 

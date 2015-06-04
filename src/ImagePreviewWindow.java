@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 22.04.2015.
  */
 public class ImagePreviewWindow extends JFrame {

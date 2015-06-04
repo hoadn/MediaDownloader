@@ -5,8 +5,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 30.05.2015.
  */
+@SuppressWarnings("unchecked")
 public class InstagramDownloadWindow extends JDialog {
     private JScrollPane scrollBar;
     private DefaultListModel listModel;
@@ -78,10 +80,6 @@ public class InstagramDownloadWindow extends JDialog {
         listModel.setElementAt(s + " | " + nListString, element);
 
         progressBar.setValue(element + 1);
-    }
-
-    public void RemoveElementAt(int i){
-        listModel.removeElementAt(i);
     }
 
     public void SetOverallProgress(String s){

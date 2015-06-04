@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Creation time: 03:05
  * Created by Dominik on 31.05.2015.
  */
+@SuppressWarnings("unchecked")
 public class SoundcloudDownloaderPanel extends JPanel {
     private SoundcloudDownloader scDownloader;
     private SettingsManager settingsManager;
@@ -33,76 +35,64 @@ public class SoundcloudDownloaderPanel extends JPanel {
     }
 
     private void initActionListeners() {
-        btnAddToList.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // determine if real fb link
-                if(txtURL.getText().contains("soundcloud")) {
-                    listModel.addElement(txtURL.getText());
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "No valid soundcloud link", "SoundCloudDownloader - Not a valid link", JOptionPane.ERROR_MESSAGE);
-                }
-                txtURL.setText("");
+        btnAddToList.addActionListener(e -> {
+            // determine if real fb link
+            if(txtURL.getText().contains("soundcloud")) {
+                listModel.addElement(txtURL.getText());
             }
-        });
-        btnRemoveFromList.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int index = listLinksGUI.getSelectedIndex();
-                if(index > -1)
-                    listModel.removeElementAt(index);
+            else {
+                JOptionPane.showMessageDialog(null, "No valid soundcloud link", "SoundCloudDownloader - Not a valid link", JOptionPane.ERROR_MESSAGE);
             }
+            txtURL.setText("");
         });
-        btnSelectPath.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String path = "";
+        btnRemoveFromList.addActionListener(e -> {
+            int index = listLinksGUI.getSelectedIndex();
+            if(index > -1)
+                listModel.removeElementAt(index);
+        });
+        btnSelectPath.addActionListener(e -> {
+            String path = "";
 
-                if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-                    path = dirChooser.getSelectedFile().getAbsolutePath();
+            if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                path = dirChooser.getSelectedFile().getAbsolutePath();
 
-                if(System.getProperty("os.name").contains("Windows"))
-                    path = path.replace("\\", "\\\\");
+            if(System.getProperty("os.name").contains("Windows"))
+                path = path.replace("\\", "\\\\");
 
-                txtPath.setText(path);
+            txtPath.setText(path);
+        });
+        btnStartDownload.addActionListener(e -> {
+            if(txtPath.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Please select a download path", "SoundCloudDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        });
-        btnStartDownload.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(txtPath.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please select a download path", "SoundCloudDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
 
-                if(listModel.size() <= 0) {
-                    JOptionPane.showMessageDialog(null,
-                            "List is empty. Please add a soundcloud link in order to start the download process",
-                            "SoundCloudDownloader - List is empty", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+            if(listModel.size() <= 0) {
+                JOptionPane.showMessageDialog(null,
+                        "List is empty. Please add a soundcloud link in order to start the download process",
+                        "SoundCloudDownloader - List is empty", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-                txtPath.setEditable(false);
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < listModel.size(); i++) {
-                            String url = listModel.get(i).toString();
-                            scDownloader = new SoundcloudDownloader(url, txtPath.getText());
-                            String toDL = scDownloader.getAudioURL();
-                            long size = scDownloader.getDownloadSize(toDL);
-                            listTitle = "Size: " + (size / 1024) + "KB | " + listModel.get(i).toString();
-                            scDownloader.DownloadFile(toDL, (int)size, i, SoundcloudDownloaderPanel.this);
-                        }
-
-                        JOptionPane.showMessageDialog(null, "Downloaded all audio files to: " + txtPath.getText(), "SoundCloudDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
-                        listModel.clear();
-                        txtPath.setEditable(true);
+            txtPath.setEditable(false);
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < listModel.size(); i++) {
+                        String url = listModel.get(i).toString();
+                        scDownloader = new SoundcloudDownloader(url, txtPath.getText());
+                        String toDL = scDownloader.getAudioURL();
+                        long size = scDownloader.getDownloadSize(toDL);
+                        listTitle = "Size: " + (size / 1024) + "KB | " + listModel.get(i).toString();
+                        scDownloader.DownloadFile(toDL, (int)size, i, SoundcloudDownloaderPanel.this);
                     }
-                });
-                t.start();
-            }
+
+                    JOptionPane.showMessageDialog(null, "Downloaded all audio files to: " + txtPath.getText(), "SoundCloudDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
+                    listModel.clear();
+                    txtPath.setEditable(true);
+                }
+            });
+            t.start();
         });
     }
 
