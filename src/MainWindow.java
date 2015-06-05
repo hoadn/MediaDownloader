@@ -23,6 +23,7 @@ public class MainWindow extends JFrame {
     private SoundcloudDownloaderPanel scPanel;
     private VimeoDownloaderPanel vimPanel;
     private NowVideoDownloaderPanel nwPanel;
+    private SharedSXDownloaderPanel sxPanel;
 
     private SettingsManager settingsManager;
 
@@ -88,20 +89,22 @@ public class MainWindow extends JFrame {
         menuBar.add(menuHelp);
 
         // add all panels
-        JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT );
+        JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.WRAP_TAB_LAYOUT );
         ytPanel = new YouTubeDownloaderPanel();
         fbPanel = new FacebookDownloaderPanel();
         igPanel = new InstagramDownloaderPanel();
         scPanel = new SoundcloudDownloaderPanel();
         vimPanel = new VimeoDownloaderPanel();
         nwPanel = new NowVideoDownloaderPanel();
+        sxPanel = new SharedSXDownloaderPanel();
 
         tabpane.add("YouTube-Downloader",ytPanel);
         tabpane.add("Facebook-Downloader",fbPanel);
         tabpane.add("Instagram-Downloader",igPanel);
         tabpane.add("SoundCloud-Downloader", scPanel);
         tabpane.add("Vimeo-Downloader", vimPanel);
-        tabpane.add("NowVideo-Downloader", nwPanel);
+        //tabpane.add("NowVideo-Downloader", nwPanel);
+        //tabpane.add("Shared.SX-Downloader", sxPanel);
 
         getContentPane().add(menuBar, BorderLayout.NORTH);
         getContentPane().add(tabpane);

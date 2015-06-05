@@ -105,6 +105,7 @@ public class NowVideoDownloader extends Downloader {
             downloadWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         }
         catch (Exception ex){
+            System.out.println(urls);
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), "Error!", JOptionPane.ERROR_MESSAGE);
             downloadWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         }
