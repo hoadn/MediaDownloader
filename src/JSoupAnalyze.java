@@ -33,6 +33,14 @@ public class JSoupAnalyze {
         }
     }
 
+    public JSoupAnalyze(String webURL, String userAgent){
+        try{
+            site = Jsoup.connect(webURL).timeout(0).userAgent(userAgent).get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public Elements AnalyzeWithTag(String analyzeTag){
         return site.select(analyzeTag);
     }

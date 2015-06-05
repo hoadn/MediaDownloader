@@ -22,6 +22,7 @@ public class MainWindow extends JFrame {
     private InstagramDownloaderPanel igPanel;
     private SoundcloudDownloaderPanel scPanel;
     private VimeoDownloaderPanel vimPanel;
+    private NowVideoDownloaderPanel nwPanel;
 
     private SettingsManager settingsManager;
 
@@ -93,12 +94,14 @@ public class MainWindow extends JFrame {
         igPanel = new InstagramDownloaderPanel();
         scPanel = new SoundcloudDownloaderPanel();
         vimPanel = new VimeoDownloaderPanel();
+        nwPanel = new NowVideoDownloaderPanel();
 
         tabpane.add("YouTube-Downloader",ytPanel);
         tabpane.add("Facebook-Downloader",fbPanel);
         tabpane.add("Instagram-Downloader",igPanel);
         tabpane.add("SoundCloud-Downloader", scPanel);
         tabpane.add("Vimeo-Downloader", vimPanel);
+        tabpane.add("NowVideo-Downloader", nwPanel);
 
         getContentPane().add(menuBar, BorderLayout.NORTH);
         getContentPane().add(tabpane);
