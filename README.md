@@ -5,14 +5,21 @@ MediaDownloader is a cross-platform java app which allows you to download files 
 # Usage:
 
 This tool allows you to download from:
+
 YouTube: Download videos and convert them into mp3 using ffmpeg (make sure it is installed under Linux!)
+
 Instagram: Crawl profiles
+
 Facebook: Crawl albums files
+
 SoundCloud: Download mp3 files
+
 Vimeo: Download videos and convert them into mp3 using ffmpeg (make sure it is installed under Linux!)
 
 Experimental supported:
+
 NowVideo: Download "movies/videos" as flv files.
+
 [+ TODO: Add convert to xxx support!]
 
 ## Shortcuts:
