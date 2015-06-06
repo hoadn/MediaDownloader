@@ -24,6 +24,7 @@ public class MainWindow extends JFrame {
     private VimeoDownloaderPanel vimPanel;
     private NowVideoDownloaderPanel nwPanel;
     private SharedSXDownloaderPanel sxPanel;
+    private StreamCloudEUDownloaderPanel sceuPanel;
 
     private SettingsManager settingsManager;
 
@@ -97,6 +98,7 @@ public class MainWindow extends JFrame {
         vimPanel = new VimeoDownloaderPanel();
         nwPanel = new NowVideoDownloaderPanel();
         sxPanel = new SharedSXDownloaderPanel();
+        sceuPanel = new StreamCloudEUDownloaderPanel();
 
         tabpane.add("YouTube-Downloader",ytPanel);
         tabpane.add("Facebook-Downloader",fbPanel);
@@ -105,6 +107,7 @@ public class MainWindow extends JFrame {
         tabpane.add("Vimeo-Downloader", vimPanel);
         //tabpane.add("NowVideo-Downloader", nwPanel);
         tabpane.add("Shared.SX-Downloader", sxPanel);
+        tabpane.add("StreamCloud.EU-Downloader", sceuPanel);
 
         getContentPane().add(menuBar, BorderLayout.NORTH);
         getContentPane().add(tabpane);

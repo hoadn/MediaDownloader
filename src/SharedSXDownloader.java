@@ -71,18 +71,6 @@ public class SharedSXDownloader extends Downloader {
     public void DownloadFile(String dlUrl, String filename,
                              SharedSXDownloaderPanel sharedSXDownloaderPanel, int fileSize) {
         try {
-            String urls = "";
-            String[] splitted = dlUrl.split("&");
-            for (int i = 0; i < splitted.length; i++) {
-                if(!splitted[i].startsWith("m=") && !urls.equals(""))
-                    urls += "?" + splitted[i];
-                else if(urls.equals(""))
-                    urls = splitted[i];
-                else
-                    urls += "?m=audio/mp4";
-            }
-
-            // if we manipulate the url -> we use urls
             URL url = new URL(dlUrl);
             URLConnection hc = url.openConnection();
 
