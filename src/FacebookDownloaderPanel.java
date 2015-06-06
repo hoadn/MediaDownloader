@@ -88,7 +88,8 @@ public class FacebookDownloaderPanel extends JPanel {
         });
         btnStartDownload.addActionListener(e -> {
             if(txtPath.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Please select a download path", "FacebookDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please select a download path",
+                        "FacebookDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -111,7 +112,8 @@ public class FacebookDownloaderPanel extends JPanel {
                         fbDownloader.DownloadFile(url, size, i, FacebookDownloaderPanel.this, txtPath.getText());
                     }
 
-                    JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtPath.getText(), "FacebookDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtPath.getText(),
+                            "FacebookDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
                     listModel.clear();
                     txtPath.setEditable(true);
                 }

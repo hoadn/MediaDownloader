@@ -50,18 +50,23 @@ public class SharedSXDownloaderPanel extends JPanel {
                 @Override
                 public void run() {
                     SharedSXDownloader sxDownloader = new SharedSXDownloader(txtSharedSXURL.getText());
-                    String filename = txtSavePath.getText() + sxDownloader.getFilename();
+                    String filename = "";
+                    if(System.getProperty("os.name").contains("Windows"))
+                        filename = txtSavePath.getText() + "\\" + sxDownloader.getFilename();
+                    else
+                        filename = txtSavePath.getText() + "/" + sxDownloader.getFilename();
                     String dlUrl = sxDownloader.getStreamURL();
 
                     sxDownloader.DownloadFile(dlUrl, filename, SharedSXDownloaderPanel.this,
                             sxDownloader.getDownloadSize(dlUrl));
 
-                    JOptionPane.showMessageDialog(null, "Downloaded finished!",
+                    JOptionPane.showMessageDialog(null, "Download finished!",
                             "SharedSXDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
 
                     txtSavePath.setEditable(true);
                     btnChoosePath.setEnabled(true);
                     btnDownload.setEnabled(true);
+                    progressBar.setValue(0);
                 }
             });
             t.start();

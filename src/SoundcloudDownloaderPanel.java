@@ -41,7 +41,8 @@ public class SoundcloudDownloaderPanel extends JPanel {
                 listModel.addElement(txtURL.getText());
             }
             else {
-                JOptionPane.showMessageDialog(null, "No valid soundcloud link", "SoundCloudDownloader - Not a valid link", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No valid soundcloud link",
+                        "SoundCloudDownloader - Not a valid link", JOptionPane.ERROR_MESSAGE);
             }
             txtURL.setText("");
         });
@@ -63,7 +64,8 @@ public class SoundcloudDownloaderPanel extends JPanel {
         });
         btnStartDownload.addActionListener(e -> {
             if(txtPath.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Please select a download path", "SoundCloudDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please select a download path",
+                        "SoundCloudDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -87,7 +89,8 @@ public class SoundcloudDownloaderPanel extends JPanel {
                         scDownloader.DownloadFile(toDL, (int)size, i, SoundcloudDownloaderPanel.this);
                     }
 
-                    JOptionPane.showMessageDialog(null, "Downloaded all audio files to: " + txtPath.getText(), "SoundCloudDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Downloaded all audio files to: " + txtPath.getText(),
+                            "SoundCloudDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
                     listModel.clear();
                     txtPath.setEditable(true);
                 }

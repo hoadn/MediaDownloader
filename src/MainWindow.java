@@ -104,7 +104,7 @@ public class MainWindow extends JFrame {
         tabpane.add("SoundCloud-Downloader", scPanel);
         tabpane.add("Vimeo-Downloader", vimPanel);
         //tabpane.add("NowVideo-Downloader", nwPanel);
-        //tabpane.add("Shared.SX-Downloader", sxPanel);
+        tabpane.add("Shared.SX-Downloader", sxPanel);
 
         getContentPane().add(menuBar, BorderLayout.NORTH);
         getContentPane().add(tabpane);

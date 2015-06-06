@@ -82,7 +82,8 @@ public class SharedSXDownloader extends Downloader {
                     urls += "?m=audio/mp4";
             }
 
-            URL url = new URL(urls);
+            // if we manipulate the url -> we use urls
+            URL url = new URL(dlUrl);
             URLConnection hc = url.openConnection();
 
             hc.setReadTimeout((100*1000));

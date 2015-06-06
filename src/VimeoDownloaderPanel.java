@@ -46,7 +46,8 @@ public class VimeoDownloaderPanel extends JPanel {
                 listModel.addElement(txtURL.getText());
             }
             else {
-                JOptionPane.showMessageDialog(null, "No valid vimeo link", "VimeoDownloader - Not a valid link", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No valid vimeo link",
+                        "VimeoDownloader - Not a valid link", JOptionPane.ERROR_MESSAGE);
             }
             txtURL.setText("");
         });
@@ -68,7 +69,8 @@ public class VimeoDownloaderPanel extends JPanel {
         });
         btnStartDownload.addActionListener(e -> {
             if(txtPath.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Please select a download path", "VimeoDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please select a download path",
+                        "VimeoDownloader - Select a valid path", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -191,7 +193,8 @@ public class VimeoDownloaderPanel extends JPanel {
                                 "YouTubeDownloader - Error", JOptionPane.ERROR_MESSAGE);
                     }
 
-                    JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtPath.getText(), "VimeoDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtPath.getText(),
+                            "VimeoDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
                     listModel.clear();
                     txtPath.setEditable(true);
                 }
@@ -237,7 +240,7 @@ public class VimeoDownloaderPanel extends JPanel {
 
         panelBottom.add(checkToMP3);
         panelBottom.add(checkRemoveMp4FilesAfterDownload);
-        panelBottom.add(new JLabel("")); // pace holder
+        panelBottom.add(new JLabel("")); // space holder
         panelBottom.add(txtPath);
         panelBottom.add(btnSelectPath);
         panelBottom.add(btnStartDownload);
