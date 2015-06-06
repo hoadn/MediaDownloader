@@ -16,11 +16,9 @@ SoundCloud: Download mp3 files
 
 Vimeo: Download videos and convert them into mp3 using ffmpeg (make sure it is installed under Linux!)
 
-Experimental supported:
+Shared.SX: Download videos/movies
 
-NowVideo: Download "movies/videos" as flv files.
-
-[+ TODO: Add convert to xxx support!]
+NowVideo: Download video/movies [ currently locked - due to server errors ]
 
 ## Shortcuts:
 > ###YouTube-URL:
