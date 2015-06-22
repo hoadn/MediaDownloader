@@ -80,12 +80,13 @@ public class InstagramDownloaderPanel extends JPanel {
                 return;
              }
              
--            txtSavePath.setEditable(false);
--            btnDownload.setEnabled(false);
--            btnGetAllFromProfileAndDownload.setEnabled(false);
--            Thread t = new Thread(new Runnable() {
--                @Override
--                public void run() {    
+            txtSavePath.setEditable(false);
+            btnDownload.setEnabled(false);
+            btnGetAllFromProfileAndDownload.setEnabled(false);
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
                     igDownloader = new InstagramDownloader(txtInstaProfile.getText(), txtSavePath.getText());
                     igDownloader.setSkipFiles(skipExistingFiles.isSelected());
                     String userID = igDownloader.fetchUserID("https://api.instagram.com/v1/users/search?q={user}&client_id=21ae9c8b9ebd4183adf0d0602ead7f05");
@@ -102,9 +103,9 @@ public class InstagramDownloaderPanel extends JPanel {
                     // this hasn't to be here!
                     // JOptionPane.showMessageDialog(null, "Downloaded all media files to: " + txtSavePath.getText(), "InstagramDownloader - Job finished", JOptionPane.INFORMATION_MESSAGE);
                     dlWindow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		  }
-                });
-                t.start();
+                }
+            });
+            t.start();
         });
     }
 
